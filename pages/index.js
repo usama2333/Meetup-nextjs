@@ -1,11 +1,40 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 
-export default function Home() {
+import MeetupList from '../components/meetups/MeetupList';
+
+
+const DUMMY_MEETUPS = [
+  {
+    id: 'm1',
+    title: 'A First Meetup',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
+    address: 'Some address 5, 12345 Some City',
+    description: 'This is a first meetup!'
+  },
+  {
+    id: 'm2',
+    title: 'A Second Meetup',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
+    address: 'Some address 10, 12345 Some City',
+    description: 'This is a second meetup!'
+  }
+];
+
+function HomePage(props) {
+
   return (
-    <div className={styles.container}>
-      <h1>This is next js app</h1>
-    </div>
-  )
+  <MeetupList meetups={props.meetups} />
+);
 }
+
+export async function getStaticProps() {
+  // fetch data from an api
+
+  return {
+    props : {
+      meetups : DUMMY_MEETUPS
+    },
+    revalidate : 10
+  }
+}
+
+export default HomePage;
